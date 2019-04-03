@@ -101,7 +101,7 @@ class CubieBot:
     def message_handler(self, m):
         try:
             if m.type == "366":
-                logging.info(f"Successfully joined channel: #{m.channel}")
+                logging.info(f"Successfully joined channel: #{m.chan}")
             
             elif m.mtype == "NOTICE":
                 logging.info(m.message)
