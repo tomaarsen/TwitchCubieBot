@@ -102,6 +102,10 @@ class CubieBot:
         try:
             if m.type == "366":
                 logging.info(f"Successfully joined channel: #{m.channel}")
+            
+            elif m.mtype == "NOTICE":
+                logging.info(m.message)
+                
             elif m.type == "PRIVMSG":
                 # Look for commands.
                 if m.message.startswith("!average") and self.check_permissions(m):
