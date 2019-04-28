@@ -91,6 +91,7 @@ class CubieBot:
                                   callback=self.message_handler,
                                   capability=self.capability,
                                   live=True)
+        self.ws.start_bot()
 
     def set_settings(self, host, port, chan, nick, auth, denied_users, allowed_ranks, allowed_people):
         self.host = host
