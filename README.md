@@ -110,6 +110,7 @@ I got my real OAuth token from https://twitchapps.com/tmi/.
 
 * [TwitchGoogleTranslate](https://github.com/CubieDev/TwitchGoogleTranslate)
 * [TwitchMarkovChain](https://github.com/CubieDev/TwitchMarkovChain)
+* [TwitchRhymeBot](https://github.com/CubieDev/TwitchRhymeBot)
 * [TwitchDeathCounter](https://github.com/CubieDev/TwitchDeathCounter)
 * [TwitchSuggestDinner](https://github.com/CubieDev/TwitchSuggestDinner)
 * [TwitchPickUser](https://github.com/CubieDev/TwitchPickUser)
