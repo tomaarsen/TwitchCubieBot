@@ -4,11 +4,11 @@ import json, time, logging, os, string
 from Log import Log
 Log(__file__)
 
-from Settings import Settings
-from Data import Collection
-from Data import MessageTypes
-from View import MessageSource
-from View import View
+from TwitchCubieBot.Settings import Settings
+from TwitchCubieBot.Data import Collection
+from TwitchCubieBot.Data import MessageTypes
+from TwitchCubieBot.View import MessageSource
+from TwitchCubieBot.View import View
 
 class CubieBot:
     def __init__(self):

@@ -1,5 +1,5 @@
 import unittest
-from CubieBot import CubieBot
+from TwitchCubieBot.CubieBot import CubieBot
 
 class TestCheckForText(unittest.TestCase):
 
