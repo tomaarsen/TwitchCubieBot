@@ -65,7 +65,7 @@ class Collection:
                 vote_dict[value] += 1
             else:
                 vote_dict[value] = 1
-        print(vote_dict)
+
         # Get max and sum from the values
         _max = max(vote_dict.values())
         _sum = sum(vote_dict.values())
