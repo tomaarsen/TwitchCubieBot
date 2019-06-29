@@ -19,4 +19,5 @@ class View:
     
     def output(self, message, source):
         if source in self.send_to_chat:
-            self.bot.ws.send_message(message)
+            if self.bot.ws != None:
+                self.bot.ws.send_message(message)
