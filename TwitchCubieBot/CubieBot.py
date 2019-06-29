@@ -211,6 +211,7 @@ class CubieBot:
             value = self.parse_number(m, sender)
             # Type of msg is only a float if a number was found.
             if type(value) == float:
+                self.view.output(value, MessageSource.NUMBERS)
                 self.collection.set(sender, value, MessageTypes.NUMBERS)
                 return value
         return False
@@ -241,6 +242,7 @@ class CubieBot:
             if len([i for i in message_list if len(i) == 1]) == len(message_list) and "".join(message_list) != len(message_list) * first_letter:
                 return False
             
+            self.view.output(first_letter, MessageSource.VOTES)
             self.collection.set(sender, first_letter, MessageTypes.TEXT)
             return True
         
