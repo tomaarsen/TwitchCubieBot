@@ -23,7 +23,8 @@ class CubieBot:
         self.allowed_people = None
         self.collection = Collection()
         self.view = View(self)
-        
+    
+    def update_settings(self):
         # Fill previously initialised variables with data from the settings.txt file
         Settings(self)
 
@@ -269,6 +270,7 @@ class CubieBot:
 
 if __name__ == "__main__":
     bot = CubieBot()
+    bot.update_settings()
     bot.start()
     # This method of endlessly sleeping, while the bot itself does not hold up the thread allows
     # other bots, such as my TwitchCubieBotGUI to start the bot more conveniently.
