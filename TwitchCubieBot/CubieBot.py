@@ -1,8 +1,9 @@
 from TwitchWebsocket import TwitchWebsocket
 import json, time, logging, os, string
 
-from Log import Log
-Log(__file__)
+if __name__ == "__main__":
+    from Log import Log
+    Log(__file__)
 
 from TwitchCubieBot.Settings import Settings
 from TwitchCubieBot.Data import Collection
