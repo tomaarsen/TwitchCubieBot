@@ -135,7 +135,11 @@ class CubieBot:
             if len(votes) == 1:
                 out = "/me {} won with {:.2f}%.".format(votes[0][0], votes[0][1] * 100)
             else:
-                out = "/me " + ", ".join([str(vote[0]) for vote in votes[:-1]]) + " and " + str(votes[-1][0]) + f" tied with {votes[0][1] * 100:.2f}% each."
+                seperator = ", "
+                # If the vote is with emotes, we don't want commas directly after the emotes, or they will not turn into actual emotes in the chat.
+                if message_type == MessageTypes.EMOTES:
+                    seperator = " , "
+                out = "/me " + seperator.join([str(vote[0]) for vote in votes[:-1]]) + " and " + str(votes[-1][0]) + f" tied with {votes[0][1] * 100:.2f}% each."
             source = MessageSource.VOTING_RESULTS
             self.collection.clear(message_type)
         else:
