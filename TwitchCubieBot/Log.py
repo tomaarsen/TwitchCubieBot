@@ -9,11 +9,15 @@ class Log():
         
         # "root" is already 4
         max_name_size = 4
-        for fname in os.listdir(here):
-            if fname.endswith(".py") and fname != this_file:
-                # Offset my 3 due to .py
-                if max_name_size + 3 < len(fname):
-                    max_name_size = len(fname) - 3
+        # This try-except will help in the case of importing this as a module.
+        try:
+            for fname in os.listdir(here):
+                if fname.endswith(".py") and fname != this_file:
+                    # Offset my 3 due to .py
+                    if max_name_size + 3 < len(fname):
+                        max_name_size = len(fname) - 3
+        except FileNotFoundError:
+            pass
 
         # If you have a logging config like me, use it
         if "PYTHON_LOGGING_CONFIG" in os.environ:
