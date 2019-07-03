@@ -6,7 +6,7 @@ Twitch Bot focusing on aggregating votes and averages from Twitch chat
 When the bot has started, it will start listening to chat messages in the channel listed in the settings.txt file. All messages will be parsed, and votes and numbers will be stored for 3 minutes after the messages comes in.
 If at some point someone decides to calculate a vote or average, the information from the last 3 minutes will be used. <b>This means it is not needed to start a vote or average in advance</b> Note that if one user sends multiple votes or multiple values, newer values will override the older ones, so everyone only has one vote.
 
-**Note that this bot now has a new version with a GUI right [here](https://github.com/CubieDev/TwitchCubieBotGUI)**
+**Note that this bot now has a new version with a GUI: [TwitchCubieBotGUI](https://github.com/CubieDev/TwitchCubieBotGUI)**
 
 ---
 # Voting
