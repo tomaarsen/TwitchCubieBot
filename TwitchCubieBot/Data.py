@@ -12,9 +12,9 @@ class Message:
     def get_message(self):
         return self.message
 
-    def outdated(self):
-        # Return if this message was sent less than 3 minutes ago
-        return self.timestamp + 3 * 60 < time.time()
+    def outdated(self, seconds):
+        # Return if this message was sent less than 'seconds' seconds ago
+        return self.timestamp + seconds < time.time()
     
     def __repr__(self):
         return self.message
@@ -35,15 +35,15 @@ class Collection:
     def set(self, sender, message, message_type):
         self._accessor[message_type.value][sender] = Message(sender, message)
 
-    def clean(self):
-        # Removes values older than 3 minutes
+    def clean(self, seconds):
+        # Removes values older than 'seconds' seconds
 
         for _dict in self._accessor:
             # List of keys to remove, as we can't remove from a dict during iteration
             to_remove = []
 
             for key in _dict:
-                if _dict[key].outdated():
+                if _dict[key].outdated(seconds):
                     # Remove the item from the dict
                     to_remove.append(key)
 

@@ -22,6 +22,8 @@ class CubieBot:
         self.denied_users = None
         self.allowed_ranks = None
         self.allowed_people = None
+        self.lookback_time = None
+        self.prev_command_time = 0
         self.collection = Collection()
         self.view = View(self)
     
@@ -48,7 +50,7 @@ class CubieBot:
             # In this case we have essentially already stopped
             pass
 
-    def set_settings(self, host, port, chan, nick, auth, denied_users, allowed_ranks, allowed_people):
+    def set_settings(self, host, port, chan, nick, auth, denied_users, allowed_ranks, allowed_people, lookback_time):
         self.host = host
         self.port = port
         self.chan = chan
@@ -57,6 +59,7 @@ class CubieBot:
         self.denied_users = denied_users
         self.allowed_ranks = allowed_ranks
         self.allowed_people = allowed_people
+        self.lookback_time = lookback_time
 
     def message_handler(self, m):
         try:
@@ -68,9 +71,9 @@ class CubieBot:
                 
             elif m.type == "PRIVMSG":
                 # Look for commands.
-                if m.message.startswith("!average") and self.check_permissions(m):
+                if m.message.startswith("!average") and self.check_permissions(m) and self.check_timeout():
                     self.command_average(m)
-                elif m.message.startswith("!vote") and self.check_permissions(m):
+                elif m.message.startswith("!vote") and self.check_permissions(m) and self.check_timeout():
                     self.command_vote(m)
                 else:
                     # Parse message for potential numbers/votes and emotes.
@@ -80,6 +83,12 @@ class CubieBot:
 
         except Exception as e:
             logging.error(e)
+
+    def check_timeout(self):
+        # Returns true if previous command was more than 5 seconds ago.
+        # Prevents multiple people from attempting to call the same vote/average, 
+        # and getting incorrect results the 2nd time
+        return self.prev_command_time + 5 < time.time()
 
     def check_permissions(self, m):
         for rank in self.allowed_ranks:
@@ -96,7 +105,7 @@ class CubieBot:
 
     def command_average(self, m):
         # Clean up the collection by removing old values.
-        self.collection.clean()
+        self.collection.clean(self.lookback_time)
 
         # Get the min and max from the message
         _min, _max = self.check_valid_min_max(m.message)
@@ -114,6 +123,8 @@ class CubieBot:
                 # Clear out the saved data
                 self.collection.clear(MessageTypes.NUMBERS)
 
+                # Reset previous command time
+                self.prev_command_time = time.time()
             else:
                 out = "No recent numbers found to take the average from."
                 source = MessageSource.AVERAGE_COMMAND_ERRORS
@@ -122,7 +133,7 @@ class CubieBot:
 
     def command_vote(self, m):
         # Clean up the collection by removing old values.
-        self.collection.clean()
+        self.collection.clean(self.lookback_time)
         
         # Find out whether sender wants to vote using numbers, letters or emotes.
         message_type = self.check_vote_type(m.message)
@@ -142,6 +153,9 @@ class CubieBot:
                 out = "/me " + seperator.join([str(vote[0]) for vote in votes[:-1]]) + " and " + str(votes[-1][0]) + f" tied with {votes[0][1] * 100:.2f}% each."
             source = MessageSource.VOTING_RESULTS
             self.collection.clear(message_type)
+
+            # Reset previous command time
+            self.prev_command_time = time.time()
         else:
             out = "No votes found."
             source = MessageSource.VOTING_COMMAND_ERRORS

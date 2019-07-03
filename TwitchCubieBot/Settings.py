@@ -20,7 +20,8 @@ class Settings:
                                 data['Authentication'],
                                 data["DeniedUsers"],
                                 data["AllowedRanks"],
-                                data["AllowedPeople"])
+                                data["AllowedPeople"],
+                                data["LookbackTime"])
                 logger.debug("Settings loaded into Bot.")
         except ValueError:
             logger.error("Error in settings file.")
@@ -38,7 +39,8 @@ class Settings:
                                     "Authentication": "oauth:<auth>",
                                     "DeniedUsers": ["streamelements", "marbiebot", "moobot"],
                                     "AllowedRanks": ["broadcaster", "moderator"],
-                                    "AllowedPeople": []
+                                    "AllowedPeople": [],
+                                    "LookbackTime": 30
                                 }
                 f.write(json.dumps(standard_dict, indent=4, separators=(',', ': ')))
                 raise ValueError("Please fix your settings.txt file that was just generated.")
