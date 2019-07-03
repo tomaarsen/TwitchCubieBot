@@ -13,5 +13,6 @@
         "broadcaster",
         "moderator"
     ],
-    "AllowedPeople": []
+    "AllowedPeople": [],
+    "LookbackTime": 30
 }
