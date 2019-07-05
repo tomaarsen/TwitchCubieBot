@@ -111,7 +111,7 @@ class CubieBot:
         _min, _max = self.check_valid_min_max(m.message)
 
         # If there are errors, _min and _max will be False.
-        if _min != False:
+        if type(_min) == float:
             if self.collection.length(MessageTypes.NUMBERS) > 0:
                 # Calculate Average.
                 average = self.collection.average(_min, _max)
