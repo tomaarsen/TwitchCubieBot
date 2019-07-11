@@ -1,9 +1,8 @@
 from TwitchWebsocket import TwitchWebsocket
 import json, time, logging, os, string, sys
 
-if __name__ == "__main__":
-    from Log import Log
-    Log(__file__)
+from TwitchCubieBot.Log import Log
+Log(__file__)
 
 from TwitchCubieBot.Settings import Settings
 from TwitchCubieBot.Data import Collection
@@ -18,7 +17,7 @@ class CubieBot:
         self.chan = None
         self.nick = None
         self.auth = None
-        self.capability = "tags"
+        self.capability = ["tags"]
         self.denied_users = None
         self.allowed_ranks = None
         self.allowed_people = None

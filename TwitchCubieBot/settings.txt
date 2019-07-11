@@ -1,11 +1,18 @@
 {
     "Host": "irc.chat.twitch.tv",
     "Port": 6667,
-    "Channel": "#CubieDev",
-    "Nickname": "CubieB0T",
-    "Authentication": "oauth:neuxemxp9o8p481bny40u605wicvz4",
-    "DeniedUsers": ["streamelements", "marbiebot", "moobot"],
-    "AllowedRanks": ["broadcaster", "moderator"],
-    "AllowedPeople": ["cubiedev"],
+    "Channel": "#<channel>",
+    "Nickname": "<name>",
+    "Authentication": "oauth:<auth>",
+    "DeniedUsers": [
+        "streamelements",
+        "marbiebot",
+        "moobot"
+    ],
+    "AllowedRanks": [
+        "broadcaster",
+        "moderator"
+    ],
+    "AllowedPeople": [],
     "LookbackTime": 30
 }
