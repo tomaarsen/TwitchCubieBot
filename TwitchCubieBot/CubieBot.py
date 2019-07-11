@@ -29,8 +29,7 @@ class CubieBot:
     
     def update_settings(self):
         # Fill previously initialised variables with data from the settings.txt file
-        path = os.path.join(sys.path[0], "settings.txt")
-        s = Settings(path)
+        s = Settings()
         self.host, self.port, self.chan, self.nick, self.auth, self.denied_users, self.allowed_ranks, self.allowed_people, self.lookback_time = s.get_settings()
 
     def start(self):
