@@ -1,5 +1,5 @@
 from TwitchWebsocket import TwitchWebsocket
-import json, time, logging, os, string
+import json, time, logging, os, string, sys
 
 if __name__ == "__main__":
     from Log import Log
@@ -29,7 +29,9 @@ class CubieBot:
     
     def update_settings(self):
         # Fill previously initialised variables with data from the settings.txt file
-        Settings(self)
+        path = os.path.join(sys.path[0], "settings.txt")
+        s = Settings(path)
+        self.host, self.port, self.chan, self.nick, self.auth, self.denied_users, self.allowed_ranks, self.allowed_people, self.lookback_time = s.get_settings()
 
     def start(self):
         self.ws = TwitchWebsocket(host=self.host, 
@@ -49,17 +51,6 @@ class CubieBot:
             # If self.ws has not yet been instantiated. 
             # In this case we have essentially already stopped
             pass
-
-    def set_settings(self, host, port, chan, nick, auth, denied_users, allowed_ranks, allowed_people, lookback_time):
-        self.host = host
-        self.port = port
-        self.chan = chan
-        self.nick = nick
-        self.auth = auth
-        self.denied_users = denied_users
-        self.allowed_ranks = allowed_ranks
-        self.allowed_people = allowed_people
-        self.lookback_time = lookback_time
 
     def message_handler(self, m):
         try:
