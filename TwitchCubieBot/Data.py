@@ -52,7 +52,9 @@ class Collection:
                 _dict.pop(key)
 
     def average(self, _min, _max):
-        values = [self.numbers[key] for key in self.numbers if self.numbers[key] >= _min and self.numbers[key] <= _max]
+        values = [self.numbers[key].get_message() for key in self.numbers if self.numbers[key].get_message() >= _min and self.numbers[key].get_message() <= _max]
+        if len(values) == 0:
+            return 0
         average = sum(values) / len(values)
         return average
     
