@@ -19,5 +19,5 @@ class View:
     
     def output(self, message, source):
         if source in self.send_to_chat:
-            if self.bot.ws != None:
+            if hasattr (self.bot, "ws") and self.bot.ws != None:
                 self.bot.ws.send_message(message)
