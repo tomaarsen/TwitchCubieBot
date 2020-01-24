@@ -40,9 +40,9 @@ Any single letter can be a vote.
 # Averaging
 Command:
 <pre>
-<b>!average min max</b>
+<b>!average</b>
 </pre>
-This command will average all numbers between min and max send in the last 3 minutes.
+This command will average (median) all numbers sent in the last `LookbackTime` seconds. See [Settings](#settings) for information on how to configure `LookbackTime`.
 
 ---
 # Examples
@@ -56,9 +56,9 @@ The logging and chat output when `!vote numbers` was typed by someone with the a
 <b>3.0 won with 84.72%.</b>
 </pre>
 
-The logging and chat output when `!average 0 100` was typed by someone with the appropriate rank:
+The logging and chat output when `!average` was typed by someone with the appropriate rank:
 <pre>
-<b>Average is 67.38%.</b>
+<b>The average is 67.38.</b>
 </pre>
 
 ---
