@@ -5,10 +5,8 @@ from TwitchCubieBot.Log import Log
 Log(__file__)
 
 from TwitchCubieBot.Settings import Settings
-from TwitchCubieBot.Data import Collection
-from TwitchCubieBot.Data import MessageTypes
-from TwitchCubieBot.View import MessageSource
-from TwitchCubieBot.View import View
+from TwitchCubieBot.Data import Collection, MessageTypes
+from TwitchCubieBot.View import MessageSource, View
 
 class CubieBot:
     def __init__(self):
@@ -96,29 +94,25 @@ class CubieBot:
         # Clean up the collection by removing old values.
         self.collection.clean(self.lookback_time)
 
-        # Get the min and max from the message
-        _min, _max = self.check_valid_min_max(m.message)
+        # If there are numbers.
+        if self.collection.length(MessageTypes.NUMBERS) > 0:
+            # Calculate Average.
+            average = self.collection.average()
+            
+            # Send outputs.
+            out = f"/me The average is {average:.{0 if average % 1 == 0 else 2}f}."
+            source = MessageSource.AVERAGE_RESULTS
+            
+            # Clear out the saved data
+            self.collection.clear(MessageTypes.NUMBERS)
 
-        # If there are errors, _min and _max will be False.
-        if type(_min) == float:
-            if self.collection.length(MessageTypes.NUMBERS) > 0:
-                # Calculate Average.
-                average = self.collection.average(_min, _max)
-                
-                # Send outputs.
-                out = "/me Average is {:.2f}{}.".format(average, "%" if _max == 100 else "")
-                source = MessageSource.AVERAGE_RESULTS
-                
-                # Clear out the saved data
-                self.collection.clear(MessageTypes.NUMBERS)
-
-                # Reset previous command time
-                self.prev_command_time = time.time()
-            else:
-                out = "No recent numbers found to take the average from."
-                source = MessageSource.AVERAGE_COMMAND_ERRORS
-            logging.info(out)
-            self.view.output(out, source)
+            # Reset previous command time
+            self.prev_command_time = time.time()
+        else:
+            out = "No recent numbers found to take the average from."
+            source = MessageSource.AVERAGE_COMMAND_ERRORS
+        logging.info(out)
+        self.view.output(out, source)
 
     def command_vote(self, m):
         # Clean up the collection by removing old values.
@@ -191,28 +185,6 @@ class CubieBot:
         
         # Otherwise:
         return MessageTypes.TEXT
-
-    def check_valid_min_max(self, message):
-
-        # Extract parameters from a command.
-        try:
-            # Attempt to get a min and a max value from the command
-            _min = float(message.split()[1])
-            _max = float(message.split()[2])
-
-            if _min >= _max:
-                out = "Parameter Error, max should be larger or equal to min."
-            else:
-                # If values are proper, return them
-                return _min, _max
-
-        except:
-            out = "Parameter Error, min and max values are not numbers."
-        logging.info(out)
-        source = MessageSource.AVERAGE_COMMAND_ERRORS
-        self.view.output(out, source)
-        # Return False in all other cases
-        return False, False
 
     def check_for_numbers(self, message, sender):
         # Check if the message contains a number.

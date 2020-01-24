@@ -5,6 +5,7 @@ class TestCheckForText(unittest.TestCase):
 
     def setUp(self):
         self.bot = CubieBot()
+        self.bot.update_settings()
         self.sender = "Cubie"
 
     def test_dial(self):
@@ -55,6 +56,7 @@ class TestCheckForNumbers(unittest.TestCase):
     
     def setUp(self):
         self.bot = CubieBot()
+        self.bot.update_settings()
         self.sender = "Cubie"
     
     def test_12(self):

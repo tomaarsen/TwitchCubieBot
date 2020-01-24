@@ -51,12 +51,12 @@ class Collection:
             for key in to_remove:
                 _dict.pop(key)
 
-    def average(self, _min, _max):
-        values = [self.numbers[key].get_message() for key in self.numbers if self.numbers[key].get_message() >= _min and self.numbers[key].get_message() <= _max]
-        if len(values) == 0:
+    def average(self):
+        if len(self.numbers) == 0:
             return 0
-        average = sum(values) / len(values)
-        return average
+        values = sorted(self.numbers[key].get_message() for key in self.numbers)
+        median = values[round(len(values) / 2)]
+        return median
     
     def vote(self, message_type):
         # Make a dict for voting
