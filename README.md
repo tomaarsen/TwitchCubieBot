@@ -37,6 +37,8 @@ Invalid votes include:
 
 Any single letter can be a vote.
 
+---
+
 # Averaging
 Command:
 <pre>
